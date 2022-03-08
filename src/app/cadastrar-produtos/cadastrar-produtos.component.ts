@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { AuthHelper } from '../_helpers/auth-helper';
  
 @Component({
   selector: 'app-cadastrar-produtos',
@@ -10,11 +11,13 @@ import { environment } from 'src/environments/environment';
 })
 export class CadastrarProdutosComponent implements OnInit {
  
-  //atributo
+  //atributos
   mensagem: string = '';
+  exibirPagina: boolean = false;
  
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private authHelper: AuthHelper
   ) { }
  
   //montando a estrutura do formulário
@@ -32,6 +35,12 @@ export class CadastrarProdutosComponent implements OnInit {
   }
  
   ngOnInit(): void {
+    if(this.authHelper.isAuthenticated()){
+      this.exibirPagina = true;
+    }
+    else{
+      window.location.href = '/';
+    }
   }
  
   //função para fazer a chamada do cadastro na API
@@ -52,3 +61,8 @@ export class CadastrarProdutosComponent implements OnInit {
   }
  
 }
+ 
+
+
+
+

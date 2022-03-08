@@ -1,0 +1,44 @@
+<div class="row mt-5" *ngIf="exibirPagina">
+    <div class="col-md-4 offset-4">
+ 
+        <div class="card card-body text-center">
+            <h5>Autenticação de Usuários</h5>
+            <p>Entre com suas credenciais para realizar autenticação.</p>
+            <hr />
+ 
+            <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+ 
+                <label>Entre com o seu Login:</label>
+                <input type="text" class="form-control" placeholder="Digite aqui" formControlName="login" />
+                <div class="text-danger" *ngIf="form.login.touched && form.login.invalid">
+                    <span *ngIf="form.login.errors.required">
+                        Por favor, informe o login de acesso.
+                    </span>
+                </div>
+                <br />
+ 
+                <label>Entre com a sua Senha:</label>
+                <input type="password" class="form-control" placeholder="Digite aqui" formControlName="senha" />
+                <div class="text-danger" *ngIf="form.senha.touched && form.senha.invalid">
+                    <span *ngIf="form.senha.errors.required">
+                        Por favor, informe a senha de acesso.
+                    </span>
+                </div>
+                <br />
+ 
+                <div class="d-grid mb-3">
+                    <input type="submit" [disabled]="!formLogin.valid" value="Realizar Autenticação"
+                        class="btn btn-primary" />
+                </div>
+ 
+                <div *ngIf="mensagem_erro" class="mb-3 alert alert-danger">
+                    <strong>{{mensagem_erro}}</strong>
+                </div>
+ 
+            </form>
+        </div>
+ 
+    </div>
+</div>
+
+

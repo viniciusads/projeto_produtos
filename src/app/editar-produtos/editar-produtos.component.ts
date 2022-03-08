@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { AuthHelper } from '../_helpers/auth-helper';
  
 @Component({
   selector: 'app-editar-produtos',
@@ -13,14 +14,23 @@ export class EditarProdutosComponent implements OnInit {
  
   //atributo
   mensagem: string = '';
+  exibirPagina: boolean = false;
  
   constructor(
     private httpClient: HttpClient,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authHelper: AuthHelper
   ) { }
  
   //função executada quando a página é aberta
   ngOnInit(): void {
+ 
+    if (this.authHelper.isAuthenticated()) {
+      this.exibirPagina = true;
+    }
+    else {
+      window.location.href = '/';
+    }
  
     //capturar o id enviado pela URL
     const idProduto = this.activatedRoute.snapshot.paramMap.get('id') as string;
